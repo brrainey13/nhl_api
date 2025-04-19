@@ -1,23 +1,3 @@
-# NHL API Python Wrapper
-
-An asynchronous Python wrapper for the official (but undocumented) NHL APIs:
-`api-web.nhle.com` and `api.nhle.com/stats/rest`.
-
-**Note:** This library interacts with APIs that are not officially documented or supported by the NHL. Use at your own risk. API changes may break this library without notice.
-
-## Installation
-
-```bash
-pip install git+https://github.com/yourusername/nhl-api-wrapper.git # Or clone and pip install .
-Use code with caution.
-Markdown
-Or for development:
-git clone https://github.com/yourusername/nhl-api-wrapper.git
-cd nhl-api-wrapper
-pip install -e .
-Use code with caution.
-Bash
-Basic Usage (api-web.nhle.com)
 import asyncio
 from nhl_api import NHLWebClient
 from nhl_api.exceptions import NHLAPIError
