@@ -25,7 +25,7 @@ class HttpClient:
             **httpx_kwargs: Additional arguments to pass to httpx.AsyncClient (e.g., headers).
         """
         self.base_url = base_url.rstrip("/")
-        self._client = httpx.AsyncClient(base_url=self.base_url, timeout=timeout, **httpx_kwargs)
+        self._client = httpx.AsyncClient(base_url=self.base_url, timeout=timeout, follow_redirects=True, **httpx_kwargs)
         # Consider adding a default User-Agent header here if desired
         # self._client.headers['User-Agent'] = USER_AGENT
 

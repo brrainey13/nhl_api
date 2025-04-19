@@ -2,6 +2,7 @@
 Utility functions for the NHL API Wrapper.
 """
 import datetime
+import typing as t
 
 def format_date(date: t.Union[str, datetime.date]) -> str:
     """
