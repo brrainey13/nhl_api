@@ -1,0 +1,5 @@
+# Development and testing dependencies for nhl_api
+httpx
+pytest
+pytest-asyncio
+pytest-httpx
