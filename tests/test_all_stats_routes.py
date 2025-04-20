@@ -14,41 +14,82 @@ from nhl_api.config import STATS_BASE_URL
 # Helper: provide test arguments for each stats method
 
 def get_test_args(wrapper_class, method_name):
-    # Disambiguate by class if needed
     args_map = {
+        # StatsPlayers
+        (StatsPlayers, "get_info"): {},
         (StatsPlayers, "get_skater_leaders"): {"attribute": "points"},
-        (StatsPlayers, "get_goalie_leaders"): {"attribute": "wins"},
+        (StatsPlayers, "get_skater_milestones"): {},
+        (StatsPlayers, "get_skater_stats"): {
+            "report": "summary",
+            "cayenne_exp": "seasonId=20232024",
+            "limit": 72,
+            "start": 17,
+            "sort": "points"
+        },
+        (StatsPlayers, "get_goalie_leaders"): {"attribute": "gaa"},
+        (StatsPlayers, "get_goalie_stats"): {
+            "report": "summary",
+            "cayenne_exp": "seasonId=20232024",
+            "limit": 72,
+            "start": 15,
+            "sort": "wins"
+        },
+        (StatsPlayers, "get_goalie_milestones"): {},
+        # StatsTeams
+        (StatsTeams, "get_info"): {},
         (StatsTeams, "get_by_id"): {"team_id": 10},
+        (StatsTeams, "get_team_stats"): {"report": "summary", "cayenne_exp": "seasonId=20232024 and gameTypeId=2"},
         (StatsTeams, "get_franchise_info"): {},
-        (StatsGame, "get_game_metadata"): {},
-        (StatsDraft, "get_info"): {},
-        (StatsSeason, "get_info"): {},
+        # StatsDraft
+        (StatsDraft, "get_draft_info"): {"cayenne_exp": "draftYear=2023"},
+        # StatsGame
+        (StatsGame, "get_game_info"): {},
+        # StatsSeason
+        (StatsSeason, "get_component_season"): {},
+        (StatsSeason, "get_season_info"): {},
+        # StatsMisc
         (StatsMisc, "get_configuration"): {},
         (StatsMisc, "ping"): {},
+        (StatsMisc, "get_country_info"): {},
+        (StatsMisc, "get_shift_charts"): {"game_id": 2023020204},
+        (StatsMisc, "get_glossary"): {},
+        (StatsMisc, "get_content_module"): {"template_key": "landing"},
     }
     return args_map.get((wrapper_class, method_name), {})
 
 WRAPPER_METHODS = [
     (StatsPlayers, [
+        "get_info",
         "get_skater_leaders",
+        "get_skater_milestones",
+        "get_skater_stats",
         "get_goalie_leaders",
+        "get_goalie_stats",
+        "get_goalie_milestones",
     ]),
     (StatsTeams, [
+        "get_info",
         "get_by_id",
+        "get_team_stats",
         "get_franchise_info",
     ]),
     (StatsGame, [
-        "get_game_metadata",
+        "get_game_info",
     ]),
     (StatsDraft, [
-        "get_info",
+        "get_draft_info",
     ]),
     (StatsSeason, [
-        "get_info",
+        "get_component_season",
+        "get_season_info",
     ]),
     (StatsMisc, [
         "get_configuration",
         "ping",
+        "get_country_info",
+        "get_shift_charts",
+        "get_glossary",
+        "get_content_module",
     ]),
 ]
 

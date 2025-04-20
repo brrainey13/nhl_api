@@ -46,16 +46,6 @@ class StatsPlayers(StatsEndpointCategory):
         """
         return await self._get("/milestones/skaters")
 
-    async def get_skater_general_info(self) -> t.Dict[str, t.Any]:
-        """
-        Retrieve general skater information.
-        Ref: https://api.nhle.com/stats/rest/{lang}/skater
-
-        Returns:
-            Dictionary containing skater information.
-        """
-        return await self._get("/skater")
-
     async def get_skater_stats(
         self,
         report: str,

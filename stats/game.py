@@ -21,13 +21,3 @@ class StatsGame(StatsEndpointCategory):
         params = {}
         if cayenne_exp: params["cayenneExp"] = cayenne_exp
         return await self._get("/game", params=params)
-
-    async def get_game_metadata(self) -> t.Dict[str, t.Any]:
-        """
-        Retrieve metadata related to games (e.g., game states, types).
-        Ref: https://api.nhle.com/stats/rest/{lang}/game/meta
-
-        Returns:
-            Dictionary containing game metadata.
-        """
-        return await self._get("/game/meta")
