@@ -8,12 +8,12 @@ version = "0.1.0"
 authors = [
   { name="Brainey", email="brrainey13@gmail.com" },
 ]
-description = "An asynchronous Python wrapper for the official NHL APIs."
+description = "An asynchronous Python wrapper for the un-official NHL APIs."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License", # Choose your license
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries :: Python Modules",

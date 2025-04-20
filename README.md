@@ -8,16 +8,19 @@ An asynchronous Python wrapper for the official (but undocumented) NHL APIs:
 ## Installation
 
 ```bash
-pip install git+https://github.com/yourusername/nhl-api-wrapper.git # Or clone and pip install .
-Use code with caution.
-Markdown
+pip install git+https://github.com/brrainey13/nhl-api.git # Or clone and pip install .
+```
+
 Or for development:
-git clone https://github.com/yourusername/nhl-api-wrapper.git
-cd nhl-api-wrapper
+```bash
+git clone https://github.com/brrainey13/nhl-api.git
+cd nhl-api
 pip install -e .
-Use code with caution.
-Bash
-Basic Usage (api-web.nhle.com)
+```
+
+## Basic Usage (api-web.nhle.com)
+
+```python
 import asyncio
 from nhl_api import NHLWebClient
 from nhl_api.exceptions import NHLAPIError
