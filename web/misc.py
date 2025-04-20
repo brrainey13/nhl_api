@@ -69,14 +69,4 @@ class Misc(WebEndpointCategory):
         path = f"/v1/postal-lookup/{postal_code}"
         return await self._get(path)
 
-    # === OpenAPI Specification ===
-    async def get_openapi_spec(self) -> t.Dict[str, t.Any]:
-        """
-        Attempt to retrieve the OpenAPI specification (often returns 404).
-        Ref: https://api-web.nhle.com/model/v1/openapi.json
-
-        Returns:
-            Dictionary containing the OpenAPI spec, if available.
-        """
-        # Note: This path doesn't start with /v1/
-        return await self._get("/model/v1/openapi.json")
+    # Removed get_openapi_spec as this endpoint does not exist and always returns 404.
