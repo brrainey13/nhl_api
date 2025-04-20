@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nhl-api"
+name = "nhlapi-tools"
 version = "0.1.0"
 authors = [
   { name="Brainey", email="brrainey13@gmail.com" },
@@ -25,7 +25,8 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["web", "models"]
+include = ["web", "models", "stats"]
+
 
 [project.urls]
 "Homepage" = "https://github.com/brrainey13/nhl-api" # Update URL
