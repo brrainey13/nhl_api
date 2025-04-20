@@ -12,18 +12,23 @@ class NHLAPIError(Exception):
 
 class NHLBadRequestError(NHLAPIError):
     """Exception for 400 Bad Request errors."""
-    pass
+    def __init__(self, status_code: int, message: str, url: str):
+        super().__init__(status_code, message, url)
+
 
 class NHLNotFoundError(NHLAPIError):
     """Exception for 404 Not Found errors."""
-    pass
+    def __init__(self, status_code: int, message: str, url: str):
+        super().__init__(status_code, message, url)
 
 class NHLRateLimitError(NHLAPIError):
     """Exception for 429 Too Many Requests errors."""
-    pass
+    def __init__(self, status_code: int, message: str, url: str):
+        super().__init__(status_code, message, url)
 
 class NHLServerError(NHLAPIError):
     """Exception for 5xx Server errors."""
-    pass
+    def __init__(self, status_code: int, message: str, url: str):
+        super().__init__(status_code, message, url)
 
 # You could add more specific 4xx errors if needed (e.g., 401 Unauthorized, 403 Forbidden)

@@ -10,6 +10,30 @@ from .base import StatsEndpointCategory
 class StatsPlayers(StatsEndpointCategory):
     """Handles Stats API endpoints related to player information, stats, leaders, and milestones."""
 
+    AVAILABLE_REPORT_TYPES = [
+        "summary",
+        "bios",
+        "faceoffpercentages",
+        "faceoffwins",
+        "goalsForAgainst",
+        "realtime",
+        "penalties",
+        "penaltykill",
+        "penaltyShots",
+        "powerplay",
+        "puckPossessions",
+        "summaryshooting",
+        "percentages",
+        "scoringRates",
+        "scoringpergame",
+        "shootout",
+        "shottype",
+        "timeonice",
+    ]
+    """
+    List of available report types for skater/goalie stats endpoints.
+    """
+
     # === Generic Player Info ===
     async def get_info(self) -> t.Dict[str, t.Any]:
         """
