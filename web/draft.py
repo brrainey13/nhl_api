@@ -1,6 +1,7 @@
 """
 Endpoints related to the NHL Draft (api-web.nhle.com/v1/draft/*)
 """
+
 import typing as t
 from .base import WebEndpointCategory
 
@@ -9,6 +10,7 @@ NA_SKATER = 1
 INTL_SKATER = 2
 NA_GOALIE = 3
 INTL_GOALIE = 4
+
 
 class Draft(WebEndpointCategory):
     """Handles endpoints related to draft rankings, trackers, and picks."""
@@ -23,7 +25,9 @@ class Draft(WebEndpointCategory):
         """
         return await self._get("/v1/draft/rankings/now")
 
-    async def get_rankings_by_prospect_category(self, season_year: int, prospect_category: int) -> t.Dict[str, t.Any]:
+    async def get_rankings_by_prospect_category(
+        self, season_year: int, prospect_category: int
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve draft prospect rankings for a specific season and category.
         Ref: https://api-web.nhle.com/v1/draft/rankings/{season}/{prospect_category}
@@ -59,7 +63,9 @@ class Draft(WebEndpointCategory):
         """
         return await self._get("/v1/draft/picks/now")
 
-    async def get_picks_by_season(self, season_year: int, round_number: t.Union[int, str] = 'all') -> t.Dict[str, t.Any]:
+    async def get_picks_by_season(
+        self, season_year: int, round_number: t.Union[int, str] = "all"
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve a list of draft picks for a specific season and optionally a specific round.
         Ref: https://api-web.nhle.com/v1/draft/picks/{season}/{round}

@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 import json
 from nhl_api.web.teams import Teams
 from nhl_api.web.schedule import Schedule
@@ -13,10 +12,12 @@ from nhl_api.http_client import HttpClient
 from nhl_api.config import WEB_BASE_URL
 import traceback
 
+
 def get_valid_game_id():
     """Return a recent valid NHL game ID for testing endpoints like get_landing."""
     # Use the confirmed valid game ID from user: 2024030141
     return 2024030141
+
 
 def get_test_args(wrapper_class, method_name):
     # Disambiguate overloaded method names by class
@@ -30,7 +31,11 @@ def get_test_args(wrapper_class, method_name):
         "get_standings_season_info": {},
         "get_club_stats_now": {"team_tricode": "TOR"},
         "get_club_stats_season_summary": {"team_tricode": "TOR"},
-        "get_club_stats_by_season": {"team_tricode": "TOR", "season": "20232024", "game_type": 2},
+        "get_club_stats_by_season": {
+            "team_tricode": "TOR",
+            "season": "20232024",
+            "game_type": 2,
+        },
         "get_team_scoreboard_now": {"team_tricode": "TOR"},
         "get_roster_now": {"team_tricode": "TOR"},
         "get_roster_by_season": {"team_tricode": "TOR", "season": "20232024"},
@@ -75,89 +80,118 @@ def get_test_args(wrapper_class, method_name):
         "get_goalie_stats_leaders_by_season": {"season": 20232024, "game_type": 2},
         "get_player_spotlight": {},
         "get_rankings_now": {},
-        "get_rankings_by_prospect_category": {"season_year": 2023, "prospect_category": 1},
+        "get_rankings_by_prospect_category": {
+            "season_year": 2023,
+            "prospect_category": 1,
+        },
         "get_tracker_picks_now": {},
         "get_picks_now": {},
         "get_picks_by_season": {"season_year": 2023, "round_number": "all"},
     }
     return args_map.get(method_name, {})
 
+
 WRAPPER_METHODS = [
-    (Teams, [
-        "get_standings_now",
-        "get_standings_by_date",
-        "get_standings_season_info",
-        "get_club_stats_now",
-        "get_club_stats_season_summary",
-        "get_club_stats_by_season",
-        "get_team_scoreboard_now",
-        "get_roster_now",
-        "get_roster_by_season",
-        "get_roster_season_summary",
-        "get_prospects",
-    ]),
-    (Schedule, [
-        "get_team_season_schedule_now",
-        "get_team_season_schedule",
-        "get_team_month_schedule_now",
-        "get_team_month_schedule",
-        "get_team_week_schedule",
-        "get_team_week_schedule_now",
-        "get_schedule_now",
-        "get_schedule_by_date",
-        "get_schedule_calendar_now",
-        "get_schedule_calendar_by_date",
-    ]),
-    (Game, [
-        "get_scores_now",
-        "get_scores_by_date",
-        "get_scoreboard_now",
-        "get_play_by_play",
-        "get_landing",
-        "get_boxscore",
-        "get_game_story",
-        "get_goal_replay",
-        "get_play_replay",
-        "get_game_right_rail",
-        "get_wsc_play_by_play",
-    ]),
-    (Playoff, [
-        "get_series_carousel",
-        "get_series_schedule",
-        "get_bracket",
-        "get_series_metadata",
-    ]),
-    (OtherWeb, [
-        "get_where_to_watch",
-        "get_tv_schedule_by_date",
-        "get_tv_schedule_now",
-        "get_partner_game_odds_now",
-        "get_seasons",
-    ]),
-    (Misc, [
-        "get_meta_info",
-        "get_meta_game_info",
-        "get_location",
-        "get_postal_code_info",
-    ]),
-    (Players, [
-        "get_game_log",
-        "get_landing",
-        "get_game_log_now",
-        "get_skater_stats_leaders_current",
-        "get_skater_stats_leaders_by_season",
-        "get_goalie_stats_leaders_current",
-        "get_goalie_stats_leaders_by_season",
-        "get_player_spotlight",
-    ]),
-    (Draft, [
-        "get_rankings_now",
-        "get_rankings_by_prospect_category",
-        "get_tracker_picks_now",
-        "get_picks_now",
-        "get_picks_by_season",
-    ]),
+    (
+        Teams,
+        [
+            "get_standings_now",
+            "get_standings_by_date",
+            "get_standings_season_info",
+            "get_club_stats_now",
+            "get_club_stats_season_summary",
+            "get_club_stats_by_season",
+            "get_team_scoreboard_now",
+            "get_roster_now",
+            "get_roster_by_season",
+            "get_roster_season_summary",
+            "get_prospects",
+        ],
+    ),
+    (
+        Schedule,
+        [
+            "get_team_season_schedule_now",
+            "get_team_season_schedule",
+            "get_team_month_schedule_now",
+            "get_team_month_schedule",
+            "get_team_week_schedule",
+            "get_team_week_schedule_now",
+            "get_schedule_now",
+            "get_schedule_by_date",
+            "get_schedule_calendar_now",
+            "get_schedule_calendar_by_date",
+        ],
+    ),
+    (
+        Game,
+        [
+            "get_scores_now",
+            "get_scores_by_date",
+            "get_scoreboard_now",
+            "get_play_by_play",
+            "get_landing",
+            "get_boxscore",
+            "get_game_story",
+            "get_goal_replay",
+            "get_play_replay",
+            "get_game_right_rail",
+            "get_wsc_play_by_play",
+        ],
+    ),
+    (
+        Playoff,
+        [
+            "get_series_carousel",
+            "get_series_schedule",
+            "get_bracket",
+            "get_series_metadata",
+        ],
+    ),
+    (
+        OtherWeb,
+        [
+            "get_where_to_watch",
+            "get_tv_schedule_by_date",
+            "get_tv_schedule_now",
+            "get_partner_game_odds_now",
+            "get_seasons",
+        ],
+    ),
+    (
+        Misc,
+        [
+            "get_meta_info",
+            "get_meta_game_info",
+            "get_location",
+            "get_postal_code_info",
+        ],
+    ),
+    (
+        Players,
+        [
+            "get_game_log",
+            "get_landing",
+            "get_game_log_now",
+            "get_skater_stats_leaders_current",
+            "get_skater_stats_leaders_by_season",
+            "get_goalie_stats_leaders_current",
+            "get_goalie_stats_leaders_by_season",
+            "get_player_spotlight",
+        ],
+    ),
+    (
+        Draft,
+        [
+            "get_rankings_now",
+            "get_rankings_by_prospect_category",
+            "get_tracker_picks_now",
+            "get_picks_now",
+            "get_picks_by_season",
+        ],
+    ),
 ]
+
 
 @pytest.mark.asyncio
 async def test_all_web_routes():
@@ -194,10 +228,10 @@ async def test_all_web_routes():
                 print(json.dumps(result, indent=2, ensure_ascii=False)[:2000])
             except Exception as e:
                 print(f"ERROR calling {route_name}: {e}")
-                if hasattr(e, 'status_code'):
-                    print("Status code:", getattr(e, 'status_code', None))
-                if hasattr(e, 'response'):
-                    print("Response text:", getattr(e, 'response', None))
+                if hasattr(e, "status_code"):
+                    print("Status code:", getattr(e, "status_code", None))
+                if hasattr(e, "response"):
+                    print("Response text:", getattr(e, "response", None))
                 tb = traceback.format_exc()
                 tracebacks.append((route_name, tb))
                 failed_routes += 1
@@ -207,11 +241,11 @@ async def test_all_web_routes():
     print(f"Successful routes: {called_routes}")
     print(f"Failed/missing routes: {failed_routes}")
     if called_route_names:
-        print(f"\nSuccessful routes:")
+        print("\nSuccessful routes:")
         for name in called_route_names:
             print(f"  - {name}")
     if failed_route_names:
-        print(f"\nFailed/missing routes:")
+        print("\nFailed/missing routes:")
         for name in failed_route_names:
             print(f"  - {name}")
     if tracebacks:

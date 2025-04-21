@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 import json
 import traceback
 from nhl_api.stats.players import StatsPlayers
@@ -13,6 +12,7 @@ from nhl_api.config import STATS_BASE_URL
 
 # Helper: provide test arguments for each stats method
 
+
 def get_test_args(wrapper_class, method_name):
     args_map = {
         # StatsPlayers
@@ -24,7 +24,7 @@ def get_test_args(wrapper_class, method_name):
             "cayenne_exp": "seasonId=20232024",
             "limit": 72,
             "start": 17,
-            "sort": "points"
+            "sort": "points",
         },
         (StatsPlayers, "get_goalie_leaders"): {"attribute": "gaa"},
         (StatsPlayers, "get_goalie_stats"): {
@@ -32,13 +32,16 @@ def get_test_args(wrapper_class, method_name):
             "cayenne_exp": "seasonId=20232024",
             "limit": 72,
             "start": 15,
-            "sort": "wins"
+            "sort": "wins",
         },
         (StatsPlayers, "get_goalie_milestones"): {},
         # StatsTeams
         (StatsTeams, "get_info"): {},
         (StatsTeams, "get_by_id"): {"team_id": 10},
-        (StatsTeams, "get_team_stats"): {"report": "summary", "cayenne_exp": "seasonId=20232024 and gameTypeId=2"},
+        (StatsTeams, "get_team_stats"): {
+            "report": "summary",
+            "cayenne_exp": "seasonId=20232024 and gameTypeId=2",
+        },
         (StatsTeams, "get_franchise_info"): {},
         # StatsDraft
         (StatsDraft, "get_draft_info"): {"cayenne_exp": "draftYear=2023"},
@@ -57,41 +60,61 @@ def get_test_args(wrapper_class, method_name):
     }
     return args_map.get((wrapper_class, method_name), {})
 
+
 WRAPPER_METHODS = [
-    (StatsPlayers, [
-        "get_info",
-        "get_skater_leaders",
-        "get_skater_milestones",
-        "get_skater_stats",
-        "get_goalie_leaders",
-        "get_goalie_stats",
-        "get_goalie_milestones",
-    ]),
-    (StatsTeams, [
-        "get_info",
-        "get_by_id",
-        "get_team_stats",
-        "get_franchise_info",
-    ]),
-    (StatsGame, [
-        "get_game_info",
-    ]),
-    (StatsDraft, [
-        "get_draft_info",
-    ]),
-    (StatsSeason, [
-        "get_component_season",
-        "get_season_info",
-    ]),
-    (StatsMisc, [
-        "get_configuration",
-        "ping",
-        "get_country_info",
-        "get_shift_charts",
-        "get_glossary",
-        "get_content_module",
-    ]),
+    (
+        StatsPlayers,
+        [
+            "get_info",
+            "get_skater_leaders",
+            "get_skater_milestones",
+            "get_skater_stats",
+            "get_goalie_leaders",
+            "get_goalie_stats",
+            "get_goalie_milestones",
+        ],
+    ),
+    (
+        StatsTeams,
+        [
+            "get_info",
+            "get_by_id",
+            "get_team_stats",
+            "get_franchise_info",
+        ],
+    ),
+    (
+        StatsGame,
+        [
+            "get_game_info",
+        ],
+    ),
+    (
+        StatsDraft,
+        [
+            "get_draft_info",
+        ],
+    ),
+    (
+        StatsSeason,
+        [
+            "get_component_season",
+            "get_season_info",
+        ],
+    ),
+    (
+        StatsMisc,
+        [
+            "get_configuration",
+            "ping",
+            "get_country_info",
+            "get_shift_charts",
+            "get_glossary",
+            "get_content_module",
+        ],
+    ),
 ]
+
 
 @pytest.mark.asyncio
 async def test_all_stats_routes():
@@ -124,10 +147,10 @@ async def test_all_stats_routes():
                 print(json.dumps(result, indent=2, ensure_ascii=False)[:2000])
             except Exception as e:
                 print(f"ERROR calling {route_name}: {e}")
-                if hasattr(e, 'status_code'):
-                    print("Status code:", getattr(e, 'status_code', None))
-                if hasattr(e, 'response'):
-                    print("Response text:", getattr(e, 'response', None))
+                if hasattr(e, "status_code"):
+                    print("Status code:", getattr(e, "status_code", None))
+                if hasattr(e, "response"):
+                    print("Response text:", getattr(e, "response", None))
                 tb = traceback.format_exc()
                 tracebacks.append((route_name, tb))
                 failed_routes += 1
@@ -137,11 +160,11 @@ async def test_all_stats_routes():
     print(f"Successful routes: {called_routes}")
     print(f"Failed/missing routes: {failed_routes}")
     if called_route_names:
-        print(f"\nSuccessful routes:")
+        print("\nSuccessful routes:")
         for name in called_route_names:
             print(f"  - {name}")
     if failed_route_names:
-        print(f"\nFailed/missing routes:")
+        print("\nFailed/missing routes:")
         for name in failed_route_names:
             print(f"  - {name}")
     if tracebacks:

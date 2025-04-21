@@ -1,6 +1,7 @@
 """
 Core asynchronous HTTP client for interacting with NHL APIs.
 """
+
 import httpx
 import typing as t
 from .config import DEFAULT_TIMEOUT
@@ -9,8 +10,9 @@ from .exceptions import (
     NHLBadRequestError,
     NHLNotFoundError,
     NHLRateLimitError,
-    NHLServerError
+    NHLServerError,
 )
+
 
 class HttpClient:
     """A wrapper around httpx.AsyncClient for making API calls."""
@@ -25,11 +27,18 @@ class HttpClient:
             **httpx_kwargs: Additional arguments to pass to httpx.AsyncClient (e.g., headers).
         """
         self.base_url = base_url.rstrip("/")
-        self._client = httpx.AsyncClient(base_url=self.base_url, timeout=timeout, follow_redirects=True, **httpx_kwargs)
+        self._client = httpx.AsyncClient(
+            base_url=self.base_url,
+            timeout=timeout,
+            follow_redirects=True,
+            **httpx_kwargs,
+        )
         # Consider adding a default User-Agent header here if desired
         # self._client.headers['User-Agent'] = USER_AGENT
 
-    async def get(self, path: str, params: t.Optional[t.Dict[str, t.Any]] = None) -> t.Dict[str, t.Any]:
+    async def get(
+        self, path: str, params: t.Optional[t.Dict[str, t.Any]] = None
+    ) -> t.Dict[str, t.Any]:
         """
         Performs an asynchronous GET request.
 
@@ -51,31 +60,44 @@ class HttpClient:
 
             # Check for specific error codes first
             if response.status_code == 400:
-                raise NHLBadRequestError(response.status_code, response.text, str(request_url))
+                raise NHLBadRequestError(
+                    response.status_code, response.text, str(request_url)
+                )
             if response.status_code == 404:
-                raise NHLNotFoundError(response.status_code, response.text, str(request_url))
+                raise NHLNotFoundError(
+                    response.status_code, response.text, str(request_url)
+                )
             if response.status_code == 429:
-                raise NHLRateLimitError(response.status_code, response.text, str(request_url))
+                raise NHLRateLimitError(
+                    response.status_code, response.text, str(request_url)
+                )
             if response.status_code >= 500:
-                raise NHLServerError(response.status_code, response.text, str(request_url))
+                raise NHLServerError(
+                    response.status_code, response.text, str(request_url)
+                )
 
             # General check for other 4xx errors
-            response.raise_for_status() # Raises httpx.HTTPStatusError for 4xx Client Errors
+            response.raise_for_status()  # Raises httpx.HTTPStatusError for 4xx Client Errors
 
             # Attempt to parse JSON, handle potential errors
             try:
                 return response.json()
-            except ValueError: # Includes JSONDecodeError
-                 raise NHLAPIError(response.status_code, "Failed to decode JSON response", str(request_url))
+            except ValueError:  # Includes JSONDecodeError
+                raise NHLAPIError(
+                    response.status_code,
+                    "Failed to decode JSON response",
+                    str(request_url),
+                )
 
         except httpx.HTTPStatusError as e:
             # Catch errors raised by raise_for_status() for other 4xx codes
-             raise NHLAPIError(e.response.status_code, e.response.text, str(e.request.url)) from e
+            raise NHLAPIError(
+                e.response.status_code, e.response.text, str(e.request.url)
+            ) from e
         # Allow httpx.RequestError (network issues, timeouts) to propagate naturally
         # Or catch and wrap them if you prefer:
         # except httpx.RequestError as e:
         #     raise NHLAPIError(0, f"Network error: {e}", str(e.request.url)) from e
-
 
     async def aclose(self):
         """Closes the underlying httpx client."""

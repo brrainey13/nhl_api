@@ -1,6 +1,7 @@
 """
 The main client facade for interacting with the api.nhle.com/stats/rest API endpoints.
 """
+
 import typing as t
 from .http_client import HttpClient
 from .config import STATS_BASE_URL
@@ -14,6 +15,7 @@ from .stats import (
 )
 
 DEFAULT_LANGUAGE = "en"
+
 
 class NHLStatsClient:
     """
@@ -42,6 +44,7 @@ class NHLStatsClient:
         >>> info = await client.misc.ping() # Ping doesn't use language
         >>> await client.aclose()
     """
+
     def __init__(self, language: str = DEFAULT_LANGUAGE, **httpx_kwargs: t.Any):
         """
         Initializes the NHL Stats API client.
@@ -54,7 +57,7 @@ class NHLStatsClient:
         """
         # Base URL *without* language, as it's prepended in requests by the category base class
         self.http_client = HttpClient(base_url=STATS_BASE_URL, **httpx_kwargs)
-        self.language = language.lower() # Store language for endpoint categories
+        self.language = language.lower()  # Store language for endpoint categories
 
         # Initialize endpoint categories, passing the HTTP client and language
         self.players = StatsPlayers(self.http_client, self.language)
@@ -69,7 +72,7 @@ class NHLStatsClient:
         """Closes the underlying HTTP client sessions."""
         await self.http_client.aclose()
 
-    async def __aenter__(self) -> 'NHLStatsClient':
+    async def __aenter__(self) -> "NHLStatsClient":
         """Enter the async context manager."""
         return self
 

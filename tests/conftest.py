@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.fixture
 def mock_player_landing_success():
     return {
@@ -8,6 +9,7 @@ def mock_player_landing_success():
         "lastName": {"default": "Matthews"},
         # Add more fields as needed for your test
     }
+
 
 @pytest.fixture
 def mock_not_found():

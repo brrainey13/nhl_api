@@ -1,14 +1,18 @@
 """
 Endpoints related to Players (api-web.nhle.com/v1/player/*, etc.)
 """
+
 import typing as t
 from .base import WebEndpointCategory
+
 
 class Players(WebEndpointCategory):
     """Handles endpoints related to player information, stats, and leaders."""
 
     # === Players ===
-    async def get_game_log(self, player_id: int, season: int, game_type: int) -> t.Dict[str, t.Any]:
+    async def get_game_log(
+        self, player_id: int, season: int, game_type: int
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the game log for a specific player, season, and game type.
         Ref: https://api-web.nhle.com/v1/player/{player}/game-log/{season}/{game-type}
@@ -27,7 +31,7 @@ class Players(WebEndpointCategory):
     async def get_landing(self, player_id: int) -> t.Dict[str, t.Any]:
         """
         Retrieve landing page summary information for a specific player.
-        Ref: https://api-web.nhle.com/v1/player/{player}/landing
+        Ref: https://api-web.nhle.com/v1/player/{player_id}/landing
 
         Args:
             player_id: The NHL player ID.
@@ -53,7 +57,9 @@ class Players(WebEndpointCategory):
         return await self._get(path)
 
     # === Skaters ===
-    async def get_skater_stats_leaders_current(self, categories: t.Optional[str] = None, limit: t.Optional[int] = None) -> t.Dict[str, t.Any]:
+    async def get_skater_stats_leaders_current(
+        self, categories: t.Optional[str] = None, limit: t.Optional[int] = None
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve current skater stats leaders.
         Ref: https://api-web.nhle.com/v1/skater-stats-leaders/current
@@ -67,12 +73,18 @@ class Players(WebEndpointCategory):
         """
         params = {}
         if categories:
-            params['categories'] = categories
+            params["categories"] = categories
         if limit is not None:
-            params['limit'] = limit
+            params["limit"] = limit
         return await self._get("/v1/skater-stats-leaders/current", params=params)
 
-    async def get_skater_stats_leaders_by_season(self, season: int, game_type: int, categories: t.Optional[str] = None, limit: t.Optional[int] = None) -> t.Dict[str, t.Any]:
+    async def get_skater_stats_leaders_by_season(
+        self,
+        season: int,
+        game_type: int,
+        categories: t.Optional[str] = None,
+        limit: t.Optional[int] = None,
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve skater stats leaders for a specific season and game type.
         Ref: https://api-web.nhle.com/v1/skater-stats-leaders/{season}/{game-type}
@@ -88,14 +100,16 @@ class Players(WebEndpointCategory):
         """
         params = {}
         if categories:
-            params['categories'] = categories
+            params["categories"] = categories
         if limit is not None:
-            params['limit'] = limit
+            params["limit"] = limit
         path = f"/v1/skater-stats-leaders/{season}/{game_type}"
         return await self._get(path, params=params)
 
     # === Goalies ===
-    async def get_goalie_stats_leaders_current(self, categories: t.Optional[str] = None, limit: t.Optional[int] = None) -> t.Dict[str, t.Any]:
+    async def get_goalie_stats_leaders_current(
+        self, categories: t.Optional[str] = None, limit: t.Optional[int] = None
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve current goalie stats leaders.
         Ref: https://api-web.nhle.com/v1/goalie-stats-leaders/current
@@ -109,12 +123,18 @@ class Players(WebEndpointCategory):
         """
         params = {}
         if categories:
-            params['categories'] = categories
+            params["categories"] = categories
         if limit is not None:
-            params['limit'] = limit
+            params["limit"] = limit
         return await self._get("/v1/goalie-stats-leaders/current", params=params)
 
-    async def get_goalie_stats_leaders_by_season(self, season: int, game_type: int, categories: t.Optional[str] = None, limit: t.Optional[int] = None) -> t.Dict[str, t.Any]:
+    async def get_goalie_stats_leaders_by_season(
+        self,
+        season: int,
+        game_type: int,
+        categories: t.Optional[str] = None,
+        limit: t.Optional[int] = None,
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve goalie stats leaders for a specific season and game type.
         Ref: https://api-web.nhle.com/v1/goalie-stats-leaders/{season}/{game-type}
@@ -130,9 +150,9 @@ class Players(WebEndpointCategory):
         """
         params = {}
         if categories:
-            params['categories'] = categories
+            params["categories"] = categories
         if limit is not None:
-            params['limit'] = limit
+            params["limit"] = limit
         path = f"/v1/goalie-stats-leaders/{season}/{game_type}"
         return await self._get(path, params=params)
 

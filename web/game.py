@@ -1,10 +1,12 @@
 """
 Endpoints related to Game Information (api-web.nhle.com/v1/score/*, /v1/gamecenter/* etc.)
 """
+
 import typing as t
 import datetime
 from .base import WebEndpointCategory
 from ..utils import format_date
+
 
 class Game(WebEndpointCategory):
     """Handles endpoints related to game scores, events, boxscores, etc."""
@@ -20,7 +22,9 @@ class Game(WebEndpointCategory):
         """
         return await self._get("/v1/score/now")
 
-    async def get_scores_by_date(self, date: t.Union[str, datetime.date]) -> t.Dict[str, t.Any]:
+    async def get_scores_by_date(
+        self, date: t.Union[str, datetime.date]
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve daily scores for a specific date.
         Ref: https://api-web.nhle.com/v1/score/{date}
@@ -103,7 +107,7 @@ class Game(WebEndpointCategory):
         path = f"/v1/wsc/game-story/{game_id}"
         return await self._get(path)
 
-     # === Game Replays === (Moved from Misc to Game as they are game-specific)
+    # === Game Replays === (Moved from Misc to Game as they are game-specific)
     async def get_goal_replay(self, game_id: int, event_id: int) -> t.Dict[str, t.Any]:
         """
         Retrieves goal replay information (video links, etc.) for a specific game event.

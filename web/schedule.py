@@ -1,16 +1,20 @@
 """
 Endpoints related to League and Team Schedules (api-web.nhle.com/v1/schedule/*, etc.)
 """
+
 import typing as t
 import datetime
 from .base import WebEndpointCategory
 from ..utils import format_date
 
+
 class Schedule(WebEndpointCategory):
     """Handles endpoints related to league-wide and team-specific schedules."""
 
     # === Team Schedule ===
-    async def get_team_season_schedule_now(self, team_tricode: str) -> t.Dict[str, t.Any]:
+    async def get_team_season_schedule_now(
+        self, team_tricode: str
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the current season schedule for a specific team.
         Ref: https://api-web.nhle.com/v1/club-schedule-season/{team}/now
@@ -24,7 +28,9 @@ class Schedule(WebEndpointCategory):
         path = f"/v1/club-schedule-season/{team_tricode.upper()}/now"
         return await self._get(path)
 
-    async def get_team_season_schedule(self, team_tricode: str, season: int) -> t.Dict[str, t.Any]:
+    async def get_team_season_schedule(
+        self, team_tricode: str, season: int
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the season schedule for a specific team and season.
         Ref: https://api-web.nhle.com/v1/club-schedule-season/{team}/{season}
@@ -39,7 +45,9 @@ class Schedule(WebEndpointCategory):
         path = f"/v1/club-schedule-season/{team_tricode.upper()}/{season}"
         return await self._get(path)
 
-    async def get_team_month_schedule_now(self, team_tricode: str) -> t.Dict[str, t.Any]:
+    async def get_team_month_schedule_now(
+        self, team_tricode: str
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the monthly schedule for a specific team for the current month.
         Ref: https://api-web.nhle.com/v1/club-schedule/{team}/month/now
@@ -53,7 +61,9 @@ class Schedule(WebEndpointCategory):
         path = f"/v1/club-schedule/{team_tricode.upper()}/month/now"
         return await self._get(path)
 
-    async def get_team_month_schedule(self, team_tricode: str, month: str) -> t.Dict[str, t.Any]:
+    async def get_team_month_schedule(
+        self, team_tricode: str, month: str
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the monthly schedule for a specific team and month.
         Ref: https://api-web.nhle.com/v1/club-schedule/{team}/month/{month}
@@ -69,7 +79,9 @@ class Schedule(WebEndpointCategory):
         path = f"/v1/club-schedule/{team_tricode.upper()}/month/{month}"
         return await self._get(path)
 
-    async def get_team_week_schedule(self, team_tricode: str, date: t.Union[str, datetime.date]) -> t.Dict[str, t.Any]:
+    async def get_team_week_schedule(
+        self, team_tricode: str, date: t.Union[str, datetime.date]
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the weekly schedule for a specific team containing the specified date.
         Ref: https://api-web.nhle.com/v1/club-schedule/{team}/week/{date}
@@ -110,7 +122,9 @@ class Schedule(WebEndpointCategory):
         """
         return await self._get("/v1/schedule/now")
 
-    async def get_schedule_by_date(self, date: t.Union[str, datetime.date]) -> t.Dict[str, t.Any]:
+    async def get_schedule_by_date(
+        self, date: t.Union[str, datetime.date]
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the league-wide schedule for a specific date.
         Ref: https://api-web.nhle.com/v1/schedule/{date}
@@ -136,7 +150,9 @@ class Schedule(WebEndpointCategory):
         """
         return await self._get("/v1/schedule-calendar/now")
 
-    async def get_schedule_calendar_by_date(self, date: t.Union[str, datetime.date]) -> t.Dict[str, t.Any]:
+    async def get_schedule_calendar_by_date(
+        self, date: t.Union[str, datetime.date]
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the schedule calendar overview for the month containing the specified date.
         Ref: https://api-web.nhle.com/v1/schedule-calendar/{date}

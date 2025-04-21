@@ -1,16 +1,20 @@
 """
 Remaining endpoints for the api-web.nhle.com API that didn't fit other categories.
 """
+
 import typing as t
 import datetime
 from .base import WebEndpointCategory
 from ..utils import format_date
 
+
 class OtherWeb(WebEndpointCategory):
     """Handles remaining endpoints like Season, WhereToWatch, Network, Odds."""
 
     # === Where to Watch ===
-    async def get_where_to_watch(self, include: t.Optional[str] = None) -> t.Dict[str, t.Any]:
+    async def get_where_to_watch(
+        self, include: t.Optional[str] = None
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve information about streaming/broadcast options.
         Ref: https://api-web.nhle.com/v1/where-to-watch
@@ -23,11 +27,13 @@ class OtherWeb(WebEndpointCategory):
         """
         params = {}
         if include:
-            params['include'] = include
+            params["include"] = include
         return await self._get("/v1/where-to-watch", params=params)
 
     # === Network ===
-    async def get_tv_schedule_by_date(self, date: t.Union[str, datetime.date]) -> t.Dict[str, t.Any]:
+    async def get_tv_schedule_by_date(
+        self, date: t.Union[str, datetime.date]
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the TV broadcast schedule for a specific date.
         Ref: https://api-web.nhle.com/v1/network/tv-schedule/{date}
@@ -83,4 +89,4 @@ class OtherWeb(WebEndpointCategory):
         else:
             # Handle unexpected format, maybe raise an error or return empty list
             # For now, let's assume it might be nested if not a direct list
-            return response.get('seasons', []) # Example guess if nested
+            return response.get("seasons", [])  # Example guess if nested

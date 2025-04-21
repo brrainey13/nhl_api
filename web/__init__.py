@@ -1,6 +1,7 @@
 """
 Endpoints for the api-web.nhle.com API.
 """
+
 from .players import Players
 from .teams import Teams
 from .schedule import Schedule

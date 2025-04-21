@@ -1,8 +1,10 @@
 """
 Endpoints related to Playoff Information (api-web.nhle.com/v1/playoff-series/*, etc.)
 """
+
 import typing as t
 from .base import WebEndpointCategory
+
 
 class Playoff(WebEndpointCategory):
     """Handles endpoints related to playoff series, schedules, and brackets."""
@@ -19,11 +21,13 @@ class Playoff(WebEndpointCategory):
         Returns:
             Dictionary containing data for the playoff series carousel.
         """
-        path = f"/v1/playoff-series/carousel/{season}/" # Note trailing slash
+        path = f"/v1/playoff-series/carousel/{season}/"  # Note trailing slash
         return await self._get(path)
 
     # === Schedule ===
-    async def get_series_schedule(self, season: int, series_letter: str) -> t.Dict[str, t.Any]:
+    async def get_series_schedule(
+        self, season: int, series_letter: str
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the schedule for a specific playoff series.
         Ref: https://api-web.nhle.com/v1/schedule/playoff-series/{season}/{series_letter}/
@@ -35,7 +39,7 @@ class Playoff(WebEndpointCategory):
         Returns:
             Dictionary containing the schedule for the specified playoff series.
         """
-        path = f"/v1/schedule/playoff-series/{season}/{series_letter.lower()}/" # Note trailing slash, ensure lowercase
+        path = f"/v1/schedule/playoff-series/{season}/{series_letter.lower()}/"  # Note trailing slash, ensure lowercase
         return await self._get(path)
 
     # === Bracket ===
@@ -54,7 +58,9 @@ class Playoff(WebEndpointCategory):
         return await self._get(path)
 
     # === Metadata (Moved from Misc) ===
-    async def get_series_metadata(self, year: int, series_letter: str) -> t.Dict[str, t.Any]:
+    async def get_series_metadata(
+        self, year: int, series_letter: str
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve metadata for a specific playoff series.
         Ref: https://api-web.nhle.com/v1/meta/playoff-series/{year}/{series_letter}

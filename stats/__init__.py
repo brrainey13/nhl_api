@@ -1,6 +1,7 @@
 """
 Endpoints for the api.nhle.com/stats/rest API.
 """
+
 from .players import StatsPlayers
 from .teams import StatsTeams
 from .draft import StatsDraft

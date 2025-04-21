@@ -1,11 +1,13 @@
 """
 Endpoints related to Teams (api.nhle.com/stats/rest/{lang}/team/*, etc.)
 """
+
 import typing as t
 from .base import StatsEndpointCategory
 
 # Common report names can be defined as constants if desired
 # e.g., TEAM_SUMMARY_REPORT = "summary"
+
 
 class StatsTeams(StatsEndpointCategory):
     """Handles Stats API endpoints related to team information, stats, and franchises."""
@@ -42,11 +44,10 @@ class StatsTeams(StatsEndpointCategory):
         # path = f"/team/id/{team_id}"
         # return await self._get(path)
 
-
     async def get_team_stats(
         self,
         report: str,
-        cayenne_exp: t.Optional[str] = None, # Usually Required for meaningful data
+        cayenne_exp: t.Optional[str] = None,  # Usually Required for meaningful data
         is_aggregate: t.Optional[bool] = None,
         is_game: t.Optional[bool] = None,
         fact_cayenne_exp: t.Optional[str] = None,
@@ -55,7 +56,7 @@ class StatsTeams(StatsEndpointCategory):
         sort: t.Optional[str] = None,
         dir: t.Optional[str] = None,
         start: t.Optional[int] = None,
-        limit: t.Optional[int] = None
+        limit: t.Optional[int] = None,
     ) -> t.Dict[str, t.Any]:
         """
         Retrieve team stats for a specific report, filtered by cayenneExp.
@@ -78,16 +79,26 @@ class StatsTeams(StatsEndpointCategory):
             Dictionary containing team stats for the specified report and filters.
         """
         params = {}
-        if cayenne_exp: params["cayenneExp"] = cayenne_exp # Often required
-        if is_aggregate is not None: params["isAggregate"] = str(is_aggregate).lower()
-        if is_game is not None: params["isGame"] = str(is_game).lower()
-        if fact_cayenne_exp: params["factCayenneExp"] = fact_cayenne_exp
-        if include: params["include"] = include
-        if exclude: params["exclude"] = exclude
-        if sort: params["sort"] = sort
-        if dir: params["dir"] = dir
-        if start is not None: params["start"] = start
-        if limit is not None: params["limit"] = limit
+        if cayenne_exp:
+            params["cayenneExp"] = cayenne_exp  # Often required
+        if is_aggregate is not None:
+            params["isAggregate"] = str(is_aggregate).lower()
+        if is_game is not None:
+            params["isGame"] = str(is_game).lower()
+        if fact_cayenne_exp:
+            params["factCayenneExp"] = fact_cayenne_exp
+        if include:
+            params["include"] = include
+        if exclude:
+            params["exclude"] = exclude
+        if sort:
+            params["sort"] = sort
+        if dir:
+            params["dir"] = dir
+        if start is not None:
+            params["start"] = start
+        if limit is not None:
+            params["limit"] = limit
 
         path = f"/team/{report}"
         return await self._get(path, params=params)

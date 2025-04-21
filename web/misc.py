@@ -1,14 +1,21 @@
 """
 Miscellaneous Endpoints from api-web.nhle.com
 """
+
 import typing as t
 from .base import WebEndpointCategory
+
 
 class Misc(WebEndpointCategory):
     """Handles miscellaneous endpoints like metadata, location, etc."""
 
     # === Meta ===
-    async def get_meta_info(self, players: t.Optional[str] = None, teams: t.Optional[str] = None, season_states: t.Optional[str] = None) -> t.Dict[str, t.Any]:
+    async def get_meta_info(
+        self,
+        players: t.Optional[str] = None,
+        teams: t.Optional[str] = None,
+        season_states: t.Optional[str] = None,
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve meta information, potentially filtered by players, teams, or season states.
         Ref: https://api-web.nhle.com/v1/meta
@@ -23,11 +30,11 @@ class Misc(WebEndpointCategory):
         """
         params = {}
         if players:
-            params['players'] = players
+            params["players"] = players
         if teams:
-            params['teams'] = teams
+            params["teams"] = teams
         if season_states:
-            params['seasonStates'] = season_states # Parameter name from docs
+            params["seasonStates"] = season_states  # Parameter name from docs
         return await self._get("/v1/meta", params=params)
 
     async def get_meta_game_info(self, game_id: int) -> t.Dict[str, t.Any]:

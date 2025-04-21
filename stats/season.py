@@ -1,8 +1,10 @@
 """
 Endpoints related to Seasons (api.nhle.com/stats/rest/{lang}/season, etc.)
 """
+
 import typing as t
 from .base import StatsEndpointCategory
+
 
 class StatsSeason(StatsEndpointCategory):
     """Handles Stats API endpoints related to season information."""

@@ -1,6 +1,7 @@
 """
 The main client facade for interacting with the api-web.nhle.com API endpoints.
 """
+
 import typing as t
 from .http_client import HttpClient
 from .config import WEB_BASE_URL
@@ -14,6 +15,7 @@ from .web import (
     Misc,
     OtherWeb,
 )
+
 
 class NHLWebClient:
     """
@@ -31,6 +33,7 @@ class NHLWebClient:
         >>> info = await client.players.get_landing(8477934)
         >>> await client.aclose() # Manually close if not using 'async with'
     """
+
     def __init__(self, **httpx_kwargs: t.Any):
         """
         Initializes the NHL Web API client.
@@ -56,7 +59,7 @@ class NHLWebClient:
         """Closes the underlying HTTP client sessions."""
         await self.http_client.aclose()
 
-    async def __aenter__(self) -> 'NHLWebClient':
+    async def __aenter__(self) -> "NHLWebClient":
         """Enter the async context manager."""
         return self
 

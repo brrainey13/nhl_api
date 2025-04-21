@@ -23,11 +23,17 @@ Usage:
 
 """
 
-__version__ = "0.1.0" # Consider incrementing version (e.g., 0.2.0)
+__version__ = "0.1.0"  # Consider incrementing version (e.g., 0.2.0)
 
-from .exceptions import NHLAPIError, NHLRateLimitError, NHLServerError, NHLNotFoundError, NHLBadRequestError
+from .exceptions import (
+    NHLAPIError,
+    NHLRateLimitError,
+    NHLServerError,
+    NHLNotFoundError,
+    NHLBadRequestError,
+)
 from .web_client import NHLWebClient
-from .stats_client import NHLStatsClient # Uncommented
+from .stats_client import NHLStatsClient  # Uncommented
 
 __all__ = [
     "NHLAPIError",
@@ -36,5 +42,5 @@ __all__ = [
     "NHLNotFoundError",
     "NHLBadRequestError",
     "NHLWebClient",
-    "NHLStatsClient", # Added
+    "NHLStatsClient",  # Added
 ]

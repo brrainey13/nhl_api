@@ -1,10 +1,12 @@
 """
 Endpoints related to Teams (api-web.nhle.com/v1/standings/*, etc.)
 """
+
 import typing as t
 import datetime
 from .base import WebEndpointCategory
 from ..utils import format_date
+
 
 class Teams(WebEndpointCategory):
     """Handles endpoints related to team standings, stats, rosters, and prospects."""
@@ -20,7 +22,9 @@ class Teams(WebEndpointCategory):
         """
         return await self._get("/v1/standings/now")
 
-    async def get_standings_by_date(self, date: t.Union[str, datetime.date]) -> t.Dict[str, t.Any]:
+    async def get_standings_by_date(
+        self, date: t.Union[str, datetime.date]
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the standings for a specific date.
         Ref: https://api-web.nhle.com/v1/standings/{date}
@@ -60,7 +64,9 @@ class Teams(WebEndpointCategory):
         path = f"/v1/club-stats/{team_tricode.upper()}/now"
         return await self._get(path)
 
-    async def get_club_stats_season_summary(self, team_tricode: str) -> t.Dict[str, t.Any]:
+    async def get_club_stats_season_summary(
+        self, team_tricode: str
+    ) -> t.Dict[str, t.Any]:
         """
         Returns an overview of the stats seasons/gametypes played for a specific club.
         Ref: https://api-web.nhle.com/v1/club-stats-season/{team}
@@ -74,7 +80,9 @@ class Teams(WebEndpointCategory):
         path = f"/v1/club-stats-season/{team_tricode.upper()}"
         return await self._get(path)
 
-    async def get_club_stats_by_season(self, team_tricode: str, season: int, game_type: int) -> t.Dict[str, t.Any]:
+    async def get_club_stats_by_season(
+        self, team_tricode: str, season: int, game_type: int
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the stats for a specific team, season, and game type.
         Ref: https://api-web.nhle.com/v1/club-stats/{team}/{season}/{game-type}
@@ -119,7 +127,9 @@ class Teams(WebEndpointCategory):
         path = f"/v1/roster/{team_tricode.upper()}/current"
         return await self._get(path)
 
-    async def get_roster_by_season(self, team_tricode: str, season: int) -> t.Dict[str, t.Any]:
+    async def get_roster_by_season(
+        self, team_tricode: str, season: int
+    ) -> t.Dict[str, t.Any]:
         """
         Retrieve the roster for a specific team and season.
         Ref: https://api-web.nhle.com/v1/roster/{team}/{season}

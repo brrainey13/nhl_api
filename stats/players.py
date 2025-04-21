@@ -1,11 +1,13 @@
 """
 Endpoints related to Players (api.nhle.com/stats/rest/{lang}/players/*, etc.)
 """
+
 import typing as t
 from .base import StatsEndpointCategory
 
 # Common report names can be defined as constants if desired
 # e.g., SKATER_SUMMARY_REPORT = "summary"
+
 
 class StatsPlayers(StatsEndpointCategory):
     """Handles Stats API endpoints related to player information, stats, leaders, and milestones."""
@@ -73,7 +75,7 @@ class StatsPlayers(StatsEndpointCategory):
     async def get_skater_stats(
         self,
         report: str,
-        cayenne_exp: str, # Required for most reports
+        cayenne_exp: str,  # Required for most reports
         is_aggregate: t.Optional[bool] = None,
         is_game: t.Optional[bool] = None,
         fact_cayenne_exp: t.Optional[str] = None,
@@ -82,7 +84,7 @@ class StatsPlayers(StatsEndpointCategory):
         sort: t.Optional[str] = None,
         dir: t.Optional[str] = None,
         start: t.Optional[int] = None,
-        limit: t.Optional[int] = None
+        limit: t.Optional[int] = None,
     ) -> t.Dict[str, t.Any]:
         """
         Retrieve skater stats for a specific report, filtered by cayenneExp.
@@ -105,16 +107,25 @@ class StatsPlayers(StatsEndpointCategory):
         Returns:
             Dictionary containing skater stats for the specified report and filters.
         """
-        params = {"cayenneExp": cayenne_exp} # Required param
-        if is_aggregate is not None: params["isAggregate"] = str(is_aggregate).lower()
-        if is_game is not None: params["isGame"] = str(is_game).lower()
-        if fact_cayenne_exp: params["factCayenneExp"] = fact_cayenne_exp
-        if include: params["include"] = include
-        if exclude: params["exclude"] = exclude
-        if sort: params["sort"] = sort
-        if dir: params["dir"] = dir
-        if start is not None: params["start"] = start
-        if limit is not None: params["limit"] = limit
+        params = {"cayenneExp": cayenne_exp}  # Required param
+        if is_aggregate is not None:
+            params["isAggregate"] = str(is_aggregate).lower()
+        if is_game is not None:
+            params["isGame"] = str(is_game).lower()
+        if fact_cayenne_exp:
+            params["factCayenneExp"] = fact_cayenne_exp
+        if include:
+            params["include"] = include
+        if exclude:
+            params["exclude"] = exclude
+        if sort:
+            params["sort"] = sort
+        if dir:
+            params["dir"] = dir
+        if start is not None:
+            params["start"] = start
+        if limit is not None:
+            params["limit"] = limit
 
         path = f"/skater/{report}"
         return await self._get(path, params=params)
@@ -137,7 +148,7 @@ class StatsPlayers(StatsEndpointCategory):
     async def get_goalie_stats(
         self,
         report: str,
-        cayenne_exp: str, # Required for most reports
+        cayenne_exp: str,  # Required for most reports
         is_aggregate: t.Optional[bool] = None,
         is_game: t.Optional[bool] = None,
         fact_cayenne_exp: t.Optional[str] = None,
@@ -146,7 +157,7 @@ class StatsPlayers(StatsEndpointCategory):
         sort: t.Optional[str] = None,
         dir: t.Optional[str] = None,
         start: t.Optional[int] = None,
-        limit: t.Optional[int] = None
+        limit: t.Optional[int] = None,
     ) -> t.Dict[str, t.Any]:
         """
         Retrieve goalie stats for a specific report, filtered by cayenneExp.
@@ -169,16 +180,25 @@ class StatsPlayers(StatsEndpointCategory):
         Returns:
             Dictionary containing goalie stats for the specified report and filters.
         """
-        params = {"cayenneExp": cayenne_exp} # Required param
-        if is_aggregate is not None: params["isAggregate"] = str(is_aggregate).lower()
-        if is_game is not None: params["isGame"] = str(is_game).lower()
-        if fact_cayenne_exp: params["factCayenneExp"] = fact_cayenne_exp
-        if include: params["include"] = include
-        if exclude: params["exclude"] = exclude
-        if sort: params["sort"] = sort
-        if dir: params["dir"] = dir
-        if start is not None: params["start"] = start
-        if limit is not None: params["limit"] = limit
+        params = {"cayenneExp": cayenne_exp}  # Required param
+        if is_aggregate is not None:
+            params["isAggregate"] = str(is_aggregate).lower()
+        if is_game is not None:
+            params["isGame"] = str(is_game).lower()
+        if fact_cayenne_exp:
+            params["factCayenneExp"] = fact_cayenne_exp
+        if include:
+            params["include"] = include
+        if exclude:
+            params["exclude"] = exclude
+        if sort:
+            params["sort"] = sort
+        if dir:
+            params["dir"] = dir
+        if start is not None:
+            params["start"] = start
+        if limit is not None:
+            params["limit"] = limit
 
         path = f"/goalie/{report}"
         return await self._get(path, params=params)

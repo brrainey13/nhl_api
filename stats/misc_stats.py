@@ -1,8 +1,10 @@
 """
 Miscellaneous Endpoints from api.nhle.com/stats/rest
 """
+
 import typing as t
 from .base import StatsEndpointCategory
+
 
 class StatsMisc(StatsEndpointCategory):
     """Handles miscellaneous Stats API endpoints like config, ping, country, etc."""
