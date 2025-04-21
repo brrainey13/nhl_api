@@ -17,7 +17,7 @@ An asynchronous Python wrapper for the official (but undocumented) NHL APIs:
 ## Installation
 
 ```bash
-pip install git+https://github.com/brrainey13/nhl-api.git # Or clone and pip install .
+pip install nhlapi-tools # Or clone and pip install .
 ```
 
 Or for development:
