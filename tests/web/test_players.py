@@ -6,9 +6,10 @@ from nhl_api import NHLWebClient
 async def test_get_player_landing_success(mock_player_landing_success):
     """Tests successfully retrieving player landing info."""
     expected_data = mock_player_landing_success  # Get data from the fixture
-    player_id = expected_data["playerId"]
+    # player_id = expected_data["playerId"]  # Removed unused assignment
 
-    async with NHLWebClient() as client:
+    # Removed unused variable 'client'
+    async with NHLWebClient():
         # In a real robust test, you'd mock the HTTP response here
         player_info = expected_data  # Simulate the API returning expected_data
     assert player_info == expected_data
@@ -20,7 +21,8 @@ async def test_get_player_landing_not_found(mock_not_found):
     """Tests handling a 404 error when player doesn't exist."""
     non_existent_player_id = 9999999
 
-    async with NHLWebClient() as client:
+    # Removed unused variable 'client'
+    async with NHLWebClient():
         # In a real robust test, you'd mock the HTTP 404 response here
         class Fake404(Exception):
             status_code = 404
